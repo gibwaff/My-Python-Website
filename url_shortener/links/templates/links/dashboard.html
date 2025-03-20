@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'links/styles.css' %}">
+</head>
+<body>
+    {% include 'links/header.html' %}
+    <div class="container">
+        <h1>Личный кабинет</h1>
+        
+        <h2>Ваши данные</h2>
+        <p><strong>Логин:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        <h2>Редактирование профиля</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Логин:</label>
+            <input type="text" name="username" id="username">
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email">
+            <br>
+            <button type="submit">Обновить</button>
+        </form>
+
+        <h2>Навигация</h2>
+        <div class="important_ref"><a href="{% url 'shorten_link' %}">Перейти к сокращению ссылок</a></div>
+        
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Выйти из аккаунта</button>
+        </form>
+    </div>
+</body>
+</html>

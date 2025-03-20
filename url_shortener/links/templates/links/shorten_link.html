@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сокращение ссылок</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'links/styles.css' %}">
+</head>
+<body>
+    {% include 'links/header.html' %}
+    <div class="container">
+        <h1>Сокращение ссылок</h1>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>  <!-- Отображение сообщения об ошибке -->
+        {% endif %}
+
+        <h2>Создать новую сокращенную ссылку</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="original_url">Оригинальная ссылка:</label>
+            <input type="url" name="original_url" id="original_url" required>
+            <br>
+            <label for="custom_shortened_url">Пользовательское сокращенное значение (необязательно):</label>
+            <input type="text" name="custom_shortened_url" id="custom_shortened_url">
+            <br>
+            <button type="submit">Сократить</button>
+        </form>
+
+        <h2>Ваши сокращенные ссылки</h2>
+        <ul>
+            {% for link in user_links %}
+                <li class="refs">
+                    <a href="{{ link.address }}">{{ link.name }}</a> - {{ link.address }}
+                </li>
+            {% empty %}
+                <div id="no_refs"><li>У вас пока нет сокращенных ссылок.</li></div>   
+            {% endfor %}
+        </ul>
+
+        <div class="important_ref"><a href="{% url 'dashboard' %}" class="btn">Вернуться в Личный кабинет</a></div>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Выйти из аккаунта</button>
+        </form>
+
+    </div>
+</body>
+</html>
