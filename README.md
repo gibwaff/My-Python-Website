@@ -10,7 +10,7 @@ The main task of the site is to convert long user links into short, user-defined
 
 **Example:**
 
-**Input:** `"https://github.com/gibwaff/My-Python-Website"` (ref)|
+**Input:** `"https://github.com/gibwaff/My-Python-Website"` (ref)  | 
            `"My-Website"` (name)
 
 **Output:** `"My-Website"` (ref)
